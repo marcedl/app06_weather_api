@@ -1,15 +1,21 @@
-from flask import Flask #web framewrk is a manager for multiple pages 
-from flask import render_template
+from flask import Flask, render_template #web framewrk is a manager for multiple pages  
 
 #Create a website object
-app = Flask("Website")
+app = Flask(__name__)
 
-@app.route("/home") #decorator that connects to .html file
+
+@app.route("/") #decorator that connects to .html file
 def home():
-    return render_template("tutorial.html")
-@app.route("/about") 
-def about():
-    return render_template("about.html")
+    return render_template("home.html")
 
 
-app.run(debug=True)
+@app.route("/api/v1/<station>/<date>") 
+def api(station, date):
+    temperature = 23
+    return {"station": station,
+            "date": date,
+            "temperature": temperature}
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
